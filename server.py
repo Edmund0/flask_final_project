@@ -10,10 +10,12 @@ def Home():
 def emotionDetector():
     text_to_analyze = request.args.get('textToAnalyze')
     main_response = emotion_detector(text_to_analyze)
-    dominant_emotion = main_response['dominant_emotion']
-    # main_response.del('dominant_emotion')
 
-    result_text = f"For the given statement, the system response is {main_response}. The dominant emotion is {dominant_emotion}"
+    if (main_response['dominant_emotion'] is None):
+        result_text = "Invalid text! Please try again!"
+    else:
+        dominant_emotion = main_response['dominant_emotion']
+        result_text = f"For the given statement, the system response is {main_response}. The dominant emotion is {dominant_emotion}"
 
     return result_text 
 
